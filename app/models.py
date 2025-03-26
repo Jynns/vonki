@@ -15,6 +15,7 @@ class User(UserMixin, db.Model):
         back_populates='author')
     
     def set_password(self, password):
+        print(type(password))
         self.pasword_hash = generate_password_hash(password)
         
     def check_password(self, password):

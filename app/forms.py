@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 import sqlalchemy as sa
 from app import db
-from app.forms import User
+from app.models import User
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators = [DataRequired()])
@@ -13,17 +13,17 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators = [DataRequired()])
-    email = PasswordField('Password', validators= [DataRequired(), Email()])
+    email = StringField('Email', validators= [DataRequired(), Email()])
     password = PasswordField('Password', validators= [DataRequired()])
-    password2 = PasswordField('Repeat Password', validators= [DataRequired(), EqualTo(password)])
+    password2 = PasswordField('Repeat Password', validators= [DataRequired(), EqualTo('password')])
     submit= SubmitField('Register')
 
     def validate_username(self, username):
         user = db.session.scalar(sa.select(User).where(User.username== username.data))
-        if user is None:
+        if user is not None:
             raise ValidationError('Please use a different username.')
 
     def validate_email(self, email):
         user = db.session.scalar(sa.select(User).where(User.email == email.data))
-        if user is None:
+        if user is not None:
             raise ValidationError('Please use a different email.')
