@@ -4,7 +4,8 @@ source venv/bin/activate
 ### extension in venv
 flask-wtf\
 flask-sqlalchemy\
-flask-migrate
+flask-migrate\
+email-validator
 
 ## Run flask
 enter venv\
