@@ -13,8 +13,17 @@ command: export FLASK_APP=vonki.py\
 command: flask run
 
 ## Deployment
+set FLASK_DEBUG=0 in .flaskenv\
 add secret key\
-add SQLALCHEMY_DATABASE_URI entry
+add SQLALCHEMY_DATABASE_URI entry\
+configure mail service in config.py
+
+## development
+export FLASK_DEBUG=1\
+export MAIL_SERVER=localhost\
+export MAIL_PORT=8025\
+command to run smtp server locally: aiosmtpd -n -c aiosmtpd.handlers.Debugging -l localhost:8025
+
 
 ## Database
 ### migrate changes

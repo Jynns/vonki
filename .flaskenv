@@ -1,0 +1,2 @@
+FLASK_APP=vonki.py
+FLASK_DEBUG=1
